@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+    <div class="overlay">
+        <div class="overlay-inner">
+            <button class="close">&times; Close</button>
+            <img>
+        </div>
+    </div>
+
+   <section class="gallery">
+       
+   </section>
+   
+   <script>
+    
+       const gallery = document.querySelector(".gallery");
+       const overlay = document.querySelector(".overlay");
+       
+       const overlayImage = overlay.querySelector("img");
+       const overlayClose = overlay.querySelector(".close");
+       
+       
+       function generateHTML([h,v]){
+           return `
+                <div class="item h${h} v${v}">
+                <img src="img/${RandomNumber(12)}.jpg">
+                <div class="item__overlay">
+                    <button> View </button>
+                </div>
+                </div>
+                
+`;
+       }
+       
+       function handleClick(e){
+          
+           const src = e.currentTarget.querySelector("img").src;
+           overlayImage.src = src;
+           open();
+       }
+       
+       function RandomNumber(limit){
+           return Math.floor(Math.random()*limit)+1;
+       }
+       
+       
+       const digit = Array.from({length: 50}, ()=>[RandomNumber(4), RandomNumber(4)]).concat([[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1]]); 
+       
+       
+       const html = digit.map(generateHTML).join("");
+       
+       console.log(html);
+       console.log(typeof html)
+       
+       
+       gallery.innerHTML = html;
+       
+       
+        const items = document.querySelectorAll(".item");
+       items.forEach(item => {
+           item.addEventListener("click",handleClick)
+       })
+       
+       function open(){
+           overlay.classList.add("open");
+       }
+       
+       function close(){
+           overlay.classList.remove("open");
+       }
+       
+       overlayClose.addEventListener("click", close);
+    
+    
+    
+    
+    
+    </script>
+</body>
+</html>
